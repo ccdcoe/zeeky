@@ -1,6 +1,8 @@
 ##! Local site policy. Customize as appropriate.
 ##!
 ##! This file will not be overwritten when upgrading or reinstalling!
+redef ignore_checksums = T;
+#redef Site::local_nets += {  };
 
 # This script logs which scripts were loaded during each run.
 @load misc/loaded-scripts
@@ -29,10 +31,10 @@
 #@load frameworks/software/vulnerable
 
 # Detect software changing (e.g. attacker installing hacked SSHD).
-@load frameworks/software/version-changes
+#@load frameworks/software/version-changes
 
 # This adds signatures to detect cleartext forward and reverse windows shells.
-@load-sigs frameworks/signatures/detect-windows-shells
+#@load-sigs frameworks/signatures/detect-windows-shells
 
 # Load all of the scripts that detect software in various protocols.
 @load protocols/ftp/software
@@ -46,10 +48,10 @@
 # This script detects DNS results pointing toward your Site::local_nets
 # where the name is not part of your local DNS zone and is being hosted
 # externally.  Requires that the Site::local_zones variable is defined.
-@load protocols/dns/detect-external-names
+#@load protocols/dns/detect-external-names
 
 # Script to detect various activity in FTP sessions.
-@load protocols/ftp/detect
+#@load protocols/ftp/detect
 
 # Scripts that do asset tracking.
 @load protocols/conn/known-hosts
@@ -68,19 +70,19 @@
 
 # If you have GeoIP support built in, do some geographic detections and
 # logging for SSH traffic.
-@load protocols/ssh/geo-data
+#@load protocols/ssh/geo-data
 # Detect hosts doing SSH bruteforce attacks.
-@load protocols/ssh/detect-bruteforcing
+#@load protocols/ssh/detect-bruteforcing
 # Detect logins using "interesting" hostnames.
 # @load protocols/ssh/interesting-hostnames
 
 # Detect SQL injection attacks.
-@load protocols/http/detect-sqli
+#@load protocols/http/detect-sqli
 
 #### Network File Handling ####
 
 # Enable MD5 and SHA1 hashing for all files.
-@load frameworks/files/hash-all-files
+#@load frameworks/files/hash-all-files
 
 # Detect SHA1 sums in Team Cymru's Malware Hash Registry.
 #@load frameworks/files/detect-MHR
@@ -99,6 +101,8 @@
 # Uncomment the following line to enable logging of link-layer addresses. Enabling
 # this adds the link-layer address for each connection endpoint to the conn.log file.
 # @load policy/protocols/conn/mac-logging
+
+@load policy/protocols/smb/log-cmds
 
 @load site/packet_bin 
 @load site/bro
